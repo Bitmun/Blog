@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${title}"></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+<h1>Main</h1>
+  <div>
+    <a
+            class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+            href="/login"
+            data-te-nav-link-ref
+            data-te-ripple-init
+            data-te-ripple-color="light"
+    >Log In</a>
+    <a
+            class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+            href="/registration"
+            data-te-nav-link-ref
+            data-te-ripple-init
+            data-te-ripple-color="light"
+    >Register</a>
+  </div>
+
+</body>
+</html>

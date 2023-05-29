@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+  <header th:insert="blocks/header :: header"></header>
+  <div>
+    <h1 th:text="${title}"></h1>
+  </div>
+  <div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>

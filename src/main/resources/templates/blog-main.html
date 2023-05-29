@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Site blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <header th:insert="blocks/header :: header"></header>
+  <div>
+    <p class="flex justify-center pt-5 text-2xl font-bold">Blogs</p>
+    <div class="flex p-2">
+        <div th:each="el : ${posts}" class="pr-2">
+            <h3 th:text="${el.title}"/>
+            <h3 th:text="${el.anons}"/>
+            <a th:href="'/blog/' + ${el.id}" class="font-bold underline">Details</a>
+        </div>
+    </div>
+  </div>
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>
