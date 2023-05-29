@@ -27,23 +27,20 @@ import java.util.Objects;
 public class MainController {
     static final Logger log = LoggerFactory.getLogger(MainController.class);
 
-    private UserRepository userRepository;
-
-    public MainController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @GetMapping("/home")
     public String home(Model model, HttpServletRequest request ) {
         User userDTO = (User) request.getSession().getAttribute("userDTO");
-        if (userDTO == null) {
-            log.info("No userDTO");
-            return "redirect:/";
-        }
-        log.info("UserDTO in Home: " + userDTO.toString());
+        // log.info("UserDTO in Home: " + userDTO.toString());
         model.addAttribute("userDTO", userDTO);
         model.addAttribute("title", "Home");
         return "home";
+    }
+    @PostMapping("/home")
+    public String becameAdmin(Model model, HttpServletRequest request) {
+        User userDTO = (User) request.getSession().getAttribute("userDTO");
+        userDTO.setRole(new Role(2L, "ROLE_ADMIN"));
+        model.addAttribute("userDTO", userDTO);
+        return "redirect:/home";
     }
 
     @GetMapping("/about")

@@ -19,7 +19,7 @@ import java.util.Objects;
 @Controller
 @SessionAttributes(value = "userDTO")
 public class AuthenticationController {
-    static final Logger log = LoggerFactory.getLogger(MainController.class);
+    static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 
     private UserRepository userRepository;
 
@@ -27,27 +27,26 @@ public class AuthenticationController {
         this.userRepository = userRepository;
     }
 
-
     @GetMapping("/")
     public String welcome(Model model) {
         model.addAttribute("title", "Welcome");
         return "welcome";
     }
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(Model model, HttpServletRequest request) {
         model.addAttribute("userForm", new User());
+        request.getSession().setAttribute("userDTO", null);
         return "login";
     }
     @PostMapping("/login")
     public String validateLogin(@ModelAttribute("userForm") User newUser, HttpServletRequest request ) {
-        User temp =userRepository.findByEmail(newUser.getEmail());
+        User temp = userRepository.findByEmail(newUser.getEmail());
         log.info("New user: " + temp.toString());
         if (temp == null) {
             log.info("User with such email does not exists");
             return "redirect:/";
         }
         if (Objects.equals(temp.getEmail(), newUser.getEmail()) && Objects.equals(temp.getPassword(), newUser.getPassword())) {
-            //modelAndView.addObject("userDTO", temp);
             request.getSession().setAttribute("userDTO", temp);
             log.info("Temp in dto: " + temp.toString());
             return "redirect:/home";
@@ -55,7 +54,8 @@ public class AuthenticationController {
         return "redirect:/";
     }
     @GetMapping("/registration")
-    public String registration(Model model) {
+    public String registration(Model model, HttpServletRequest request) {
+        request.getSession().setAttribute("userDTO", null);
         model.addAttribute("userForm", new User());
         return "registration";
     }

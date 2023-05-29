@@ -2,6 +2,7 @@ package com.example.blog.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -70,6 +71,10 @@ public class User {
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    public boolean hasRole(String roleName) {
+        return Objects.equals(role.getName(), roleName);
     }
 
     public void setPassword(String password) {
