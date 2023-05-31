@@ -1,5 +1,6 @@
 package com.example.blog.entity;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "role")
 public class Role {
+
     @Id
     private Long id;
     private String name;
@@ -15,7 +17,19 @@ public class Role {
     private Set<User> users;
     public Role() {
     }
+    @Transient
+    @PersistenceContext
+    EntityManager entityManager;
 
+    @PostConstruct
+    public void init() {
+        Role userRole = new Role(1L, "ROLE_USER");
+        userRole.setName("ROLE_USER");
+        entityManager.persist(userRole);
+        Role adminRole = new Role(2L, "ROLE_ADMIN");
+        adminRole.setName("ROLE_ADMIN");
+        entityManager.persist(adminRole);
+    }
     public Role(Long id) {
         this.id = id;
     }

@@ -74,17 +74,12 @@ public class RoleFilter implements Filter {
             httpResponse.sendRedirect("/home");
             return;
         }
-        else if (requestURI.startsWith("/blog") || requestURI.startsWith("/home")
+        else if (requestURI.equals("/blog") || requestURI.startsWith("/home")
                 && userDTO.hasRole("ROLE_USER") || userDTO.hasRole("ROLE_ADMIN")) {
             chain.doFilter(request, response);
             return;
         }
-//        else if (requestURI.startsWith("/blog") || requestURI.startsWith("/home")
-//                && !userDTO.hasRole("ROLE_USER") && !userDTO.hasRole("ROLE_ADMIN")) {
-//            log.info("redirect to login2");
-//            httpResponse.sendRedirect("/login");
-//            return;
-//        }
+
         chain.doFilter(request, response);
     }
 }

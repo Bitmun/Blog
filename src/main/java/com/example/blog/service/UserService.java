@@ -42,7 +42,7 @@ public class UserService {
         }
         return user;
     }
-    public User getUserByEmail(String email) {
+    public User findUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             return null;
@@ -50,4 +50,7 @@ public class UserService {
         return user;
     }
 
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
+    }
 }

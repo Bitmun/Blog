@@ -14,9 +14,7 @@ public class Post {
     private String title, anons, full_text;
 
     private int views;
-
     public Post() {};
-
 
     public Post(String title, String anons, String full_text) {
         this.title = title;
@@ -62,5 +60,16 @@ public class Post {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", anons='" + anons + '\'' +
+                ", full_text='" + full_text + '\'' +
+                ", views=" + views +
+                '}';
     }
 }

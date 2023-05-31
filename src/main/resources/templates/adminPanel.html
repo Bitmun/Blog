@@ -7,10 +7,10 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<div>
+<div class="flex flex-col">
   <div class="text-2xl"> Welcome to admin panel <span class="text-red-700" th:text="${userDTO.username}"/></div>
   <div class="text-2xl"> Role: <span class="text-red-700" th:text="${userDTO.roles.name}"/></div>
-
+  <a href="/admin/allUsers">View all users</a>
   <a href="/home">Go back home</a>
 </div>
 </body>

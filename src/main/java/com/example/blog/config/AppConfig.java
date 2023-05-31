@@ -23,7 +23,7 @@ public class AppConfig implements WebMvcConfigurer {
     public FilterRegistrationBean<RoleFilter> roleFilterRegistrationBean() {
         FilterRegistrationBean<RoleFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new RoleFilter());
-        registration.addUrlPatterns("/admin/*", "/home", "/about", "/blog/*");
+        registration.addUrlPatterns("/admin/*", "/home", "/about");
         registration.setName("RoleFilter");
         log.info("filtering!!!");
         registration.setOrder(1);

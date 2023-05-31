@@ -28,6 +28,20 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
+    @PostMapping("/logout")
+    public String logOut(HttpServletRequest request) {
+        request.getSession().setAttribute("userDTO", null);
+        log.info("dto - null");
+        return "redirect:/welcome";
+    }
+    @GetMapping("/home")
+    public String home(Model model, HttpServletRequest request ) {
+        User userDTO = (User) request.getSession().getAttribute("userDTO");
+        log.info("In home: " + userDTO.toString());
+        model.addAttribute("userDTO", userDTO);
+        model.addAttribute("title", "Home");
+        return "home";
+    }
     @GetMapping("/")
     public String welcome(Model model) {
         model.addAttribute("title", "Welcome");
@@ -35,23 +49,25 @@ public class AuthenticationController {
     }
     @GetMapping("/login")
     public String login(Model model, HttpServletRequest request) {
-        model.addAttribute("userForm", new User());
         request.getSession().setAttribute("userDTO", null);
+        model.addAttribute("userForm", new User());
         return "login";
     }
     @PostMapping("/login")
     public String validateLogin(@ModelAttribute("userForm") User newUser, HttpServletRequest request ) {
-        User temp = userService.getUserByEmail(newUser.getEmail());
+        User temp = userService.findUserByEmail(newUser.getEmail());
         if (temp == null) {
             log.info("User with such email does not exists");
             return "redirect:/";
         }
         if (Objects.equals(temp.getEmail(), newUser.getEmail()) && Objects.equals(temp.getPassword(), newUser.getPassword())) {
             request.getSession().setAttribute("userDTO", temp);
-            log.info("Temp in dto: " + temp.toString());
+            log.info("Temp in dto: " + request.getSession().getAttribute("userDTO").toString());
             return "redirect:/home";
         }
         return "redirect:/";
+
+
     }
     @GetMapping("/registration")
     public String registration(Model model, HttpServletRequest request) {
@@ -61,7 +77,7 @@ public class AuthenticationController {
     }
     @PostMapping("/registration")
     public String validateRegistration(@ModelAttribute("userForm") User newUser, HttpServletRequest request ) {
-        User temp = userService.getUserByEmail(newUser.getEmail());
+        User temp = userService.findUserByEmail(newUser.getEmail());
         if (temp != null) {
             log.info("Email is already in use");
             return "redirect:/";
