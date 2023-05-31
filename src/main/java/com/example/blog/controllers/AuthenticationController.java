@@ -3,6 +3,7 @@ package com.example.blog.controllers;
 import com.example.blog.entity.Role;
 import com.example.blog.entity.User;
 import com.example.blog.repo.UserRepository;
+import com.example.blog.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +22,9 @@ import java.util.Objects;
 public class AuthenticationController {
     static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 
-    private UserRepository userRepository;
-
-    public AuthenticationController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private UserService userService;
+    public AuthenticationController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -40,8 +40,7 @@ public class AuthenticationController {
     }
     @PostMapping("/login")
     public String validateLogin(@ModelAttribute("userForm") User newUser, HttpServletRequest request ) {
-        User temp = userRepository.findByEmail(newUser.getEmail());
-        log.info("New user: " + temp.toString());
+        User temp = userService.getUserByEmail(newUser.getEmail());
         if (temp == null) {
             log.info("User with such email does not exists");
             return "redirect:/";
@@ -61,13 +60,14 @@ public class AuthenticationController {
     }
     @PostMapping("/registration")
     public String validateRegistration(@ModelAttribute("userForm") User newUser, HttpServletRequest request ) {
-        User temp = userRepository.findByEmail(newUser.getEmail());
+        User temp = userService.getUserByEmail(newUser.getEmail());
         if (temp != null) {
             log.info("Email is already in use");
             return "redirect:/";
         }
         newUser.setRole(new Role(1L, "ROLE_USER"));
-        userRepository.save(newUser);
+        userService.becameUser(newUser);
+        userService.save(newUser);
         request.getSession().setAttribute("userDTO", newUser);
         return "redirect:/home";
     }

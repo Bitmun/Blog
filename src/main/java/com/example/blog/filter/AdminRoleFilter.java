@@ -23,7 +23,6 @@ public class AdminRoleFilter implements Filter {
         String requestUri = httpRequest.getRequestURI();
         log.info(requestUri);
         if (!requestUri.startsWith("/admin")) {
-            // skip filter logic for requests that don't match "/admin"
             chain.doFilter(request, response);
             return;
         }
