@@ -7,16 +7,20 @@
 
 </head>
 <body>
-<!--<header th:insert="blocks/header :: header"></header>-->
+<header th:insert="blocks/header :: header"></header>
 <div>
-  <h1>Add blog</h1>
-  <form action="/blog/add" th:action="@{/blog/add}" th:object="${newPost}" method="post">
-    <input type="text" name="title" th:field="*{title}" placeholder="Enter title"><br>
-    <input type="text" name="anons" th:field="*{anons}" placeholder="Enter anons"><br>
-    <textarea name="full_text"  th:field="*{full_text}"  placeholder="Enter full text"></textarea><br>
+  <h1 class="text-center text-3xl">Add blog</h1>
+  <form action="/blog/add" th:action="@{/blog/add}" th:object="${newPost}" method="post"
+        class="flex flex-col items-center p-24">
+    <input type="text" name="title" th:field="*{title}" placeholder="Enter title"
+           class="border-2 border-aqua p-5 rounded-lg"><br>
+    <input type="text" name="anons" th:field="*{anons}"
+           class="border-2 border-aqua p-5 rounded-lg" placeholder="Enter anons"><br>
+    <textarea name="full_text"  th:field="*{full_text}"
+              class="border-2 border-aqua p-5 rounded-lg"  placeholder="Enter full text"></textarea><br>
     <button type="submit">Submit</button>
   </form>
 </div>
-<!--<div th:insert="blocks/footer :: footer"></div>-->
+<div th:insert="blocks/footer :: footer"></div>
 </body>
 </html>

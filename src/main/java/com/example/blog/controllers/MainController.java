@@ -26,6 +26,12 @@ public class MainController {
         this.userService = userService;
     }
 
+    @PostMapping("/logout")
+    public String logOut(HttpServletRequest request) {
+        request.getSession().setAttribute("userDTO", null);
+        return "redirect:/welcome";
+    }
+
     @GetMapping("/home")
     public String home(Model model, HttpServletRequest request ) {
         User userDTO = (User) request.getSession().getAttribute("userDTO");
@@ -33,14 +39,20 @@ public class MainController {
         model.addAttribute("title", "Home");
         return "home";
     }
-    @PostMapping("/home")
+    @PostMapping("/becameAdmin")
     public String becameAdmin(Model model, HttpServletRequest request) {
         User userDTO = (User) request.getSession().getAttribute("userDTO");
         userService.becameAdmin(userDTO);
         model.addAttribute("userDTO", userDTO);
         return "redirect:/home";
     }
-
+    @PostMapping("/becameUser")
+    public String becameUser(Model model, HttpServletRequest request) {
+        User userDTO = (User) request.getSession().getAttribute("userDTO");
+        userService.becameUser(userDTO);
+        model.addAttribute("userDTO", userDTO);
+        return "redirect:/home";
+    }
     @GetMapping("/about")
     public String about(Model model) {
         model.addAttribute("title", "About us");

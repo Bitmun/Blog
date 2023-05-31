@@ -16,7 +16,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((auth) -> auth.anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults());
-
         return http.build();
     }
+
 }

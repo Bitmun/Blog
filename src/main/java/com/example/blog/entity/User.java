@@ -1,6 +1,9 @@
 package com.example.blog.entity;
 
+import com.example.blog.controllers.MainController;
 import jakarta.persistence.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 import java.util.Set;
@@ -8,6 +11,8 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+    static final Logger log = LoggerFactory.getLogger(MainController.class);
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

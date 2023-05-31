@@ -22,6 +22,7 @@ import java.util.Objects;
 public class AuthenticationController {
     static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 
+
     private UserService userService;
     public AuthenticationController(UserService userService) {
         this.userService = userService;
